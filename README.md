@@ -89,8 +89,6 @@ you must protect it by a private network or [Basic access authentication](https:
 
 Inside your mail templates folders, you can create multiple languages files for the same email, in the following format: `{lang}.(mjml|subject|txt)`.
 
-You also need to let a default file in case the language is not found or no language is requested.
-
 So, for example, your folder should look something like this:
 
 ```
@@ -112,6 +110,8 @@ For example, the following body will try to send a german email:
 ```
 
 If the `lang` property is not present in the body of your request, the default email will be sent.
+
+If request contains `"lang": "de"` and one `de.txt`, `de.subject` or `de.mjml` file missing then `default.*` file will be used.
 
 ### Why « Gibbon-mail » name?
 
