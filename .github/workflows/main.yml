@@ -49,6 +49,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
+        with:
+          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6,linux/ppc64le,linux/s390x
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
@@ -60,6 +62,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
+          platforms: ${{ steps.qemu.outputs.platforms }}
           tags: spacefill/gibbon-mail:test-build-ci
           file: docker-image/Dockerfile
       - name: Image digest
@@ -76,6 +79,8 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
+        with:
+          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6,linux/ppc64le,linux/s390x
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
@@ -88,6 +93,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          platforms: ${{ steps.qemu.outputs.platforms }}
           tags: spacefill/gibbon-mail:latest
           file: docker-image/Dockerfile
       - name: Image digest
@@ -115,6 +121,8 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
+        with:
+          platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6,linux/ppc64le,linux/s390x
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
@@ -127,6 +135,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          platforms: ${{ steps.qemu.outputs.platforms }}
           tags: spacefill/gibbon-mail:${{ steps.branch_name.outputs.TAG_VERSION }}
           file: docker-image/Dockerfile
       - name: Image digest
